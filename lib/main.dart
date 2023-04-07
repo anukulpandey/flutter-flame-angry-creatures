@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
+import 'package:flame/src/gestures/events.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/widgets.dart';
 
@@ -15,7 +16,7 @@ void main(){
   );
 }
 
-class MyGame extends Forge2DGame{
+class MyGame extends Forge2DGame with HasTappables{
 @override
   FutureOr<void> onLoad() async{
     await super.onLoad();
@@ -34,14 +35,14 @@ class Ground extends BodyComponent{
   final Vector2 gameSize;
   
   //constructor
-  Ground(this.gameSize);
+  Ground(this.gameSize):super(renderBody: false);
 
   @override
   Body createBody() {
     Shape shape = EdgeShape()
     ..set(
-      Vector2(0, gameSize.y * 0.9),
-      Vector2(gameSize.x,gameSize.y * 0.9)
+      Vector2(0, gameSize.y * 0.86),
+      Vector2(gameSize.x,gameSize.y * 0.86)
     ); //you can play with this by changing the coordinates of vectors it will form different lines
     BodyDef bodyDef = BodyDef(userData: this,position: Vector2.zero());
     FixtureDef fixtureDef = FixtureDef(shape,friction: 0.3);
@@ -49,12 +50,25 @@ class Ground extends BodyComponent{
   }
 }
 
-class Player extends BodyComponent{
+class Player extends BodyComponent with Tappable{
+  @override
+  Future<void> onLoad() async{
+    add(SpriteComponent()..size=Vector2.all(6)..sprite=await gameRef.loadSprite('creature.gif')..anchor=Anchor.center);
+    renderBody=false;
+    await super.onLoad();
+  }
+
   @override
   Body createBody() {
     Shape shape = CircleShape()..radius = 3;
     BodyDef bodyDef = BodyDef(position: Vector2(10,5),type: BodyType.dynamic); //this can interact with others
     FixtureDef fixtureDef = FixtureDef(shape,friction: 0.4,density: 1); // determines physical properties
     return world.createBody(bodyDef)..createFixture(fixtureDef);
+  }
+
+  @override
+  bool onTapDown(TapDownInfo info) {
+    body.applyLinearImpulse(Vector2(20, -15)*100);
+    return false;
   }
 }
