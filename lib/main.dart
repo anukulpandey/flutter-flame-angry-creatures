@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
@@ -18,6 +19,10 @@ class MyGame extends Forge2DGame{
   FutureOr<void> onLoad() async{
     await super.onLoad();
     Vector2 gameSize = screenToWorld(camera.viewport.effectiveSize); //now gamesize is converted to coordinate system for forge2d game
+    add(SpriteComponent()
+      ..sprite = await loadSprite('background.jpg')
+      ..size = size
+      );
     add(Ground(gameSize));
     add(Player());
   }
