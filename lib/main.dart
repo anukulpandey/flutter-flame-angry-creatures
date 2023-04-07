@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flame/game.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/widgets.dart';
@@ -9,7 +11,11 @@ void main() {
 }
 
 class MyGame extends Forge2DGame{
-
+@override
+  FutureOr<void> onLoad() async{
+    await super.onLoad();
+    add(Player());
+  }
 }
 
 
