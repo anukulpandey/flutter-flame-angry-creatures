@@ -14,6 +14,8 @@ class MyGame extends Forge2DGame{
 @override
   FutureOr<void> onLoad() async{
     await super.onLoad();
+    Vector2 gameSize = screenToWorld(camera.viewport.effectiveSize); //now gamesize is converted to coordinate system for forge2d game
+    add(Ground(gameSize));
     add(Player());
   }
 }
@@ -27,7 +29,11 @@ class Ground extends BodyComponent{
 
   @override
   Body createBody() {
-    Shape shape = EdgeShape()..set(Vector2(0, gameSize.y * 0.9),Vector2(gameSize.x,gameSize.y * 0.9) );
+    Shape shape = EdgeShape()
+    ..set(
+      Vector2(0, gameSize.y * 0.9),
+      Vector2(gameSize.x,gameSize.y * 0.9)
+    ); //you can play with this by changing the coordinates of vectors it will form different lines
     BodyDef bodyDef = BodyDef(userData: this,position: Vector2.zero());
     FixtureDef fixtureDef = FixtureDef(shape,friction: 0.3);
     return world.createBody(bodyDef)..createFixture(fixtureDef);
