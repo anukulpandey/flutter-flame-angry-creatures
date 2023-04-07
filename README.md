@@ -1,16 +1,7 @@
-# creature_run
+# Flutter x Flame : Angry Creatures
 
-A new Flutter project.
+## Introduction
+You can tap on the monkey and it will hit the obstacles - nothing fancy : WIP
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Screenshot
+![image](https://user-images.githubusercontent.com/62092256/230665330-7b0bcc6e-79a3-4348-8bca-fbdbcfa9eed2.png)
