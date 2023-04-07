@@ -18,6 +18,21 @@ class MyGame extends Forge2DGame{
   }
 }
 
+//Now the problem was that the player was only falling , so we need to add a ground
+class Ground extends BodyComponent{
+  final Vector2 gameSize;
+  
+  //constructor
+  Ground(this.gameSize);
+
+  @override
+  Body createBody() {
+    Shape shape = EdgeShape()..set(Vector2(0, gameSize.y * 0.9),Vector2(gameSize.x,gameSize.y * 0.9) );
+    BodyDef bodyDef = BodyDef(userData: this,position: Vector2.zero());
+    FixtureDef fixtureDef = FixtureDef(shape,friction: 0.3);
+    return world.createBody(bodyDef)..createFixture(fixtureDef);
+  }
+}
 
 class Player extends BodyComponent{
   @override
